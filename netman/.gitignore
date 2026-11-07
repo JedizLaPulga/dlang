@@ -1,0 +1,15 @@
+.dub
+docs.json
+__dummy.html
+docs/
+/netman
+netman.so
+netman.dylib
+netman.dll
+netman.a
+netman.lib
+netman-test-*
+*.exe
+*.o
+*.obj
+*.lst
