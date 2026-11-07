@@ -1,6 +1,11 @@
 import std.stdio;
+import net;
 
 void main()
 {
-	writeln("Edit source/app.d to start your project.");
+    auto start = Start(5);
+    start.displayCount();
+
+    auto end = End(10);
+    end.displayCount();
 }
