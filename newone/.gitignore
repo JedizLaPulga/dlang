@@ -1,0 +1,15 @@
+.dub
+docs.json
+__dummy.html
+docs/
+/newone
+newone.so
+newone.dylib
+newone.dll
+newone.a
+newone.lib
+newone-test-*
+*.exe
+*.o
+*.obj
+*.lst
