@@ -9,3 +9,22 @@ struct Electron{
 	immutable string flavor = "electron";
 	immutable string leptonNumber = "1";
 }
+
+
+struct ElectronField(int num){
+	private:
+	Electron[] electrons;
+	
+	this() {
+		electrons = new Electron[num];
+		for (int i = 0; i < num; i++) {
+			electrons[i] = Electron();
+		}
+	}
+
+	public:
+	
+	Electron getElectron(int index){
+		return electrons[index];
+	}
+}
