@@ -119,3 +119,36 @@ HardwareInfo create() {
     
     return hw;
 }
+
+
+struct Hardware{
+
+    private{
+        HardwareInfo state;
+        bool modeBit =false;
+
+    }
+    
+
+     this(bool mode){
+        this.modeBit = mode;
+        if (mode) {
+            this.state = create();
+        }
+     }
+
+    void shell(const char* command)
+    in{
+        assert(this.modeBit, "Hardware mode is not enabled.");
+
+    }out{
+        system(command);
+    }do{
+
+        
+    }
+
+
+
+
+}
