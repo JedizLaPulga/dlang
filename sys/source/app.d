@@ -1,5 +1,5 @@
 
-import sys.syscall.hardware;
+import sys.call.hardware;
 import core.stdc.stdio;
 import core.stdc.stdlib;
 

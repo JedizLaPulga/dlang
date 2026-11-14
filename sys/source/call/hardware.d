@@ -1,4 +1,4 @@
-module sys.syscall.hardware;
+module sys.call.hardware;
 
 import core.stdc.stdlib;
 import core.stdc.stdio;
