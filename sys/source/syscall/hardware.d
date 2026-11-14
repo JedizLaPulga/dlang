@@ -45,26 +45,29 @@ struct HardwareInfo {
             return cast(const(char)*)"Error: malloc failed";
         }
         
-        snprintf(buffer, 2048,
-            "===== HARDWARE INFORMATION =====\n"
-            "--- Operating System ---\n"
-            "System: %.65s\n"
-            "Release: %.65s\n"
-            "Version: %.256s\n"
-            "Hostname: %.65s\n"
-            "\n--- CPU Information ---\n"
-            "Machine Type: %.65s\n"
-            "CPU Cores (Online): %d\n"
-            "CPU Cores (Configured): %d\n"
-            "Clock Ticks/Second: %ld\n"
-            "\n--- Memory Information ---\n"
-            "Page Size: %ld bytes\n"
-            "Total Physical Pages: %ld\n"
-            "Total Memory: %ld MB\n"
-            "Total Memory: %ld bytes\n"
-            "Available Physical Pages: %ld\n"
-            "Available Memory: %ld MB\n"
-            "Available Memory: %ld bytes\n",
+        // Build format string
+        const(char)* fmt = 
+            "===== HARDWARE INFORMATION =====" ~ "\n" ~
+            "--- Operating System ---" ~ "\n" ~
+            "System: %s" ~ "\n" ~
+            "Release: %s" ~ "\n" ~
+            "Version: %s" ~ "\n" ~
+            "Hostname: %s" ~ "\n" ~ "\n" ~
+            "--- CPU Information ---" ~ "\n" ~
+            "Machine Type: %s" ~ "\n" ~
+            "CPU Cores (Online): %d" ~ "\n" ~
+            "CPU Cores (Configured): %d" ~ "\n" ~
+            "Clock Ticks/Second: %ld" ~ "\n" ~ "\n" ~
+            "--- Memory Information ---" ~ "\n" ~
+            "Page Size: %ld bytes" ~ "\n" ~
+            "Total Physical Pages: %ld" ~ "\n" ~
+            "Total Memory: %ld MB" ~ "\n" ~
+            "Total Memory: %ld bytes" ~ "\n" ~
+            "Available Physical Pages: %ld" ~ "\n" ~
+            "Available Memory: %ld MB" ~ "\n" ~
+            "Available Memory: %ld bytes" ~ "\n";
+        
+        snprintf(buffer, 2048, fmt,
             osSystem, osRelease, osVersion, hostname,
             machineType, cpuCoresOnline, cpuCoresConfigured, clockTicksPerSecond,
             pageSize, totalMemoryPages, totalMemoryBytes / (1024 * 1024), totalMemoryBytes,
@@ -75,17 +78,19 @@ struct HardwareInfo {
     }
 }
 
+extern(C) char* strndup(const char* s, size_t n) @nogc nothrow;
+
 HardwareInfo create() {
     HardwareInfo hw;
     
     utsname info;
     uname(&info);
     
-    hw.osSystem = cast(const(char)*)info.sysname.ptr;
-    hw.osRelease = cast(const(char)*)info.release.ptr;
-    hw.osVersion = cast(const(char)*)info.version_.ptr;
-    hw.hostname = cast(const(char)*)info.nodename.ptr;
-    hw.machineType = cast(const(char)*)info.machine.ptr;
+    hw.osSystem = strndup(&info.sysname[0], 65);
+    hw.osRelease = strndup(&info.release[0], 65);
+    hw.osVersion = strndup(&info.version_[0], 65);
+    hw.hostname = strndup(&info.nodename[0], 65);
+    hw.machineType = strndup(&info.machine[0], 65);
     
     long onlineCores = sysconf(_SC_NPROCESSORS_ONLN);
     hw.cpuCoresOnline = cast(int)onlineCores;
