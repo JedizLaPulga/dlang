@@ -1,10 +1,8 @@
 
-import sys.call.hardware;
-import core.stdc.stdio;
-import core.stdc.stdlib;
+import sys.math;
 
 extern(C) int main() {
-	auto hw = Hardware(true);
+	Num n = Num(42);
 
 	
 	
