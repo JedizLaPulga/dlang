@@ -6,7 +6,7 @@ import core.stdc.stdlib;
 extern(C) int main() {
 	auto hw = Hardware(true);
 
-	hw.toString();
+	
 	
 return 0;
 }

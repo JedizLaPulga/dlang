@@ -137,16 +137,7 @@ struct Hardware{
         }
      }
 
-    void shell(const char* command)
-    in{
-        assert(this.modeBit, "Hardware mode is not enabled.");
-
-    }out{
-        system(command);
-    }do{
-
-        
-    }
+    
 
 
 
