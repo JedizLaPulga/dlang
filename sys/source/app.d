@@ -7,6 +7,7 @@ extern(C) int main() {
 	printf("Creating hardware info...\n");
 	HardwareInfo hw = create();
 	
+	// Validate hardware state
 	if (!hw.isValid()) {
 		printf("ERROR: Hardware info is invalid!\n");
 		return 1;
@@ -16,6 +17,7 @@ extern(C) int main() {
 	const(char)* result = hw.toString();
 	printf("%s\n", result);
 	
+	// Cleanup allocated buffer
 	free(cast(void*)result);
 	
 	return 0;

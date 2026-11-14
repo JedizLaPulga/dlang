@@ -22,6 +22,7 @@ struct HardwareInfo {
     long availableMemoryBytes;
 
     bool isValid() const {
+        // Validate all required fields are populated
         return osSystem !is null && osSystem[0] != '\0' &&
                osRelease !is null && osRelease[0] != '\0' &&
                hostname !is null && hostname[0] != '\0' &&
@@ -34,9 +35,11 @@ struct HardwareInfo {
 
     const (char)* toString() const
     in {
+        // Precondition: create() must have been called
         assert(isValid(), "HardwareInfo: invalid state - create() must be called first");
     }
     out(result) {
+        // Postcondition: result must be non-null
         assert(result !is null, "HardwareInfo: toString() returned null");
     }
     do {
@@ -80,12 +83,14 @@ struct HardwareInfo {
 
 extern(C) char* strndup(const char* s, size_t n) @nogc nothrow;
 
+// Retrieve all hardware info from system via POSIX calls
 HardwareInfo create() {
     HardwareInfo hw;
     
     utsname info;
     uname(&info);
     
+    // Allocate persistent copies of system strings
     hw.osSystem = strndup(&info.sysname[0], 65);
     hw.osRelease = strndup(&info.release[0], 65);
     hw.osVersion = strndup(&info.version_[0], 65);
