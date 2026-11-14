@@ -57,6 +57,50 @@ mixin template MathMethods() {
     }
 }
 
+mixin template NumLineMethods() {
+    long min() const {
+        return start_val;
+    }
+
+    long max() const {
+        return end_val;
+    }
+
+    long sum() const {
+        long result = 0;
+        long n = length();
+        if (n <= 0) return 0;
+        result = (n * (start_val + end_val)) / 2;
+        return result;
+    }
+
+    double average() const {
+        long n = length();
+        if (n <= 0) return 0.0;
+        return cast(double)sum() / cast(double)n;
+    }
+
+    long count() const {
+        return length();
+    }
+
+    long product() const {
+        long result = 1;
+        for (long i = start_val; i <= end_val; i++) {
+            result *= i;
+        }
+        return result;
+    }
+
+    long range() const {
+        return end_val - start_val;
+    }
+
+    bool isEven() const {
+        return (end_val - start_val) % 2 == 0;
+    }
+}
+
 struct Num {
     private double value;
     
@@ -161,5 +205,61 @@ struct Num {
         size_t hash;
         memcpy(&hash, &value, (size_t.sizeof < double.sizeof) ? size_t.sizeof : double.sizeof);
         return hash;
+    }
+}
+
+struct NumLine {
+    private long start_val;
+    private long end_val;
+    private long current;
+
+    this(long start, long end) {
+        start_val = start;
+        end_val = end;
+        current = start;
+    }
+
+    // Mix in range math methods
+    mixin NumLineMethods;
+
+    long start() const {
+        return start_val;
+    }
+
+    long end() const {
+        return end_val;
+    }
+
+    long length() const {
+        if (end_val >= start_val)
+            return end_val - start_val + 1;
+        return 0;
+    }
+
+    bool empty() const {
+        return current > end_val;
+    }
+
+    long front() const {
+        return current;
+    }
+
+    void popFront() {
+        if (current <= end_val)
+            current++;
+    }
+
+    void reset() {
+        current = start_val;
+    }
+
+    long opIndex(long index) const {
+        if (index >= 0 && index < length())
+            return start_val + index;
+        return -1;
+    }
+
+    bool contains(long value) const {
+        return value >= start_val && value <= end_val;
     }
 }
