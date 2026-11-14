@@ -15,16 +15,19 @@ struct ElectronField(int num){
 	private:
 	Electron[] electrons;
 	
-	this() {
-		electrons = new Electron[num];
-		for (int i = 0; i < num; i++) {
-			electrons[i] = Electron();
-		}
-	}
-
 	public:
+	static ElectronField opCall() {
+		ElectronField field;
+		field.electrons.length = num;
+		return field;
+	}
 	
 	Electron getElectron(int index){
+		
 		return electrons[index];
+	}
+
+	Electron[] iter(){
+		return electrons.dup;
 	}
 }

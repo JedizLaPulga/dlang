@@ -1,0 +1,15 @@
+.dub
+docs.json
+__dummy.html
+docs/
+/sys
+sys.so
+sys.dylib
+sys.dll
+sys.a
+sys.lib
+sys-test-*
+*.exe
+*.o
+*.obj
+*.lst

@@ -1,0 +1,18 @@
+{
+	"authors": [
+		"HP"
+	],
+	"copyright": "Copyright © 2026, HP",
+	"description": "A minimal D application.",
+	"license": "proprietary",
+	"name": "sys",
+	"dflags": ["-betterC"],
+	"defaultCompiler": "ldc2",
+	"configurations": [
+		{
+			"name": "application",
+			"targetType": "executable",
+			"mainSourceFile": "source/app.d"
+		}
+	]
+}
