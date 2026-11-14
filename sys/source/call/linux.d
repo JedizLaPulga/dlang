@@ -1,1 +1,1 @@
-module sys.syscall.linux;
+module sys.call.linux;
